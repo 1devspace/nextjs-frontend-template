@@ -1,4 +1,3 @@
-
 # Next.js Frontend Template
 
 A modern Next.js template with TypeScript, Tailwind CSS 4, Shadcn UI, Clerk authentication, and Zustand state management.

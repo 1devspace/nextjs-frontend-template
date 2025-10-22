@@ -1,0 +1,107 @@
+---
+alwaysApply: true
+---
+# Project Overview
+
+- Use Next.js 15 with the app router.
+- Integrate Tailwind CSS version 4 for styling.
+- Use Shadcn UI for components.
+- Use Clerk for authentication.
+- All code should be in TypeScript.
+- Prioritize server-side rendering: pages.tsx must be server components (no 'use client').
+- In pages.tsx, compose page content by calling sections.
+- Sections should contain and compose smaller components.
+- Providers should handle initial API calls and integrate client-side tools (e.g., toast configurations from Shadcn UI).
+- Keep the root layout.tsx as a server component; wrap client-side providers without making the layout client-side.
+- **State Management**: All state must be managed using Zustand with Immer for immutable updates, with stores defined in the `state/` folder.
+- For styling, use Tailwind CSS 4 classes with light/dark mode support (e.g., bg-background text-foreground).
+- Apply provided Prettier and ESLint configurations.
+
+# Folder Structure
+
+- /
+  - app/ (Next.js app router pages and layouts)
+  - components/ (Reusable UI components)
+  - sections/ (Page sections that compose components)
+  - providers/ (Client-side providers like Clerk, Toaster)
+  - state/ (Zustand stores with Immer for immutable updates)
+  - lib/ (Utility functions)
+  - utils/ (Helper utilities)
+  - config/ (Configuration files)
+  - hooks/ (Custom React hooks)
+
+# State Management 
+
+- All application施
+System: pplication state must be managed using Zustand with Immer for immutable updates.
+- Define each store in a separate file under `state/` (e.g., `state/useAuthStore.ts`).
+- Use Immer's `produce` function for all state updates in Zustand stores to ensure immutability.
+- Stores handle both client-side state (e.g., UI toggles) and API-fetched data (e.g., Clerk user data).
+- Components or sections requiring state use Zustand hooks (e.g., `useAuthStore`).
+- Avoid local component state (e.g., React `useState`) unless strictly necessary for ephemeral UI state.
+
+# Authentication
+
+- Use Clerk for authentication, integrated via ClerkProvider in `providers/`.
+- Create a Zustand store (`state/useAuthStore.ts`) with Immer to manage Clerk's authentication state.
+- Perform server-side auth checks in pages.tsx using Clerk's server-side APIs.
+- Use the Zustand store for client-side access to auth state.
+
+# Page Composition
+
+- In `app/[route]/page.tsx`:
+  - Fetch data server-side.
+  - Render sections as server components.
+- In `sections/` (e.g., `sections/HomeHero.tsx`):
+  - Compose smaller components from `components/`.
+  - Use Zustand stores with Immer for state needs.
+  - Keep sections as server components unless client interactivity requires 'use client'.
+
+# Providers and Client-Side Integration
+
+- In `providers/AppProviders.tsx` (client component):
+  - Wrap app with ClerkProvider, Shadcn's Toaster, etc.
+  - Initialize/sync Zustand stores with client-side data (e.g., Clerk auth state).
+- In `app/layout.tsx` (server component):
+  - Use `AppProviders` to wrap content without making layout client-side.
+
+# Styling Guidelines
+
+- Use Tailwind CSS 4 classes exclusively.
+- Support light/dark modes using Shadcn's theme.
+- Ensure responsive design with Tailwind's breakpoints.
+
+# Implementation Status
+
+✅ **COMPLETED:**
+1. ✅ Set up Next.js 15 project with TypeScript and app router
+2. ✅ Installed and configured Tailwind CSS 4 and Shadcn UI
+3. ✅ Installed Clerk for authentication
+4. ✅ Installed Zustand and Immer for state management
+5. ✅ Created Prettier and ESLint configs
+6. ✅ Created Zustand store in `state/useAuthStore.ts` using Immer for Clerk auth state
+7. ✅ Set up `providers/AppProviders.tsx` with ClerkProvider and Toaster
+8. ✅ Created sample page (`app/page.tsx`) as server component, rendering sections
+9. ✅ Created sample sections (`sections/HomeHero.tsx`) using Shadcn and Zustand
+10. ✅ Created `app/layout.tsx` as server component, wrapping content with `AppProviders`
+11. ✅ Configured project structure with proper folder organization
+
+# Current Project Structure
+
+- `app/` - Next.js app router pages and layouts (server components)
+- `components/` - Reusable UI components (client components when needed)
+- `sections/` - Page sections that compose components (server components)
+- `providers/` - Client-side providers (Clerk, Toaster, etc.)
+- `state/` - Zustand stores with Immer for immutable state management
+- `lib/` - Utility functions
+- `utils/` - Helper utilities
+- `config/` - Configuration files
+- `hooks/` - Custom React hooks
+
+# Next Steps
+
+To complete the setup:
+1. Create `.env.local` file with Clerk credentials (see SETUP.md)
+2. Run `npm run dev` to start the development server
+3. Set up Clerk authentication in the dashboard
+4. Customize components and sections as needed
