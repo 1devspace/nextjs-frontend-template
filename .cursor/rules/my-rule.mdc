@@ -3,7 +3,7 @@ alwaysApply: true
 ---
 # Project Overview
 
-- Use Next.js 15 with the app router.
+- Use Next.js 16 with the app router.
 - Integrate Tailwind CSS version 4 for styling.
 - Use Shadcn UI for components.
 - Use Clerk for authentication.
